@@ -1,4 +1,4 @@
-package com.home.bean;
+package com.home.entity;
 
 import java.io.Serializable;
 
@@ -13,10 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Entity
-@Table(name = "mysql_demo")
-public class MySqlUser implements Serializable {
+@Table(name = "mysql_user")
+public class UserEntity implements Serializable {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(MySqlUser.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserEntity.class);
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -25,16 +25,27 @@ public class MySqlUser implements Serializable {
 	private int id;
 
 	@Column(name = "Name")
-	private String name;
+	private String username;
 
 	@Column(name = "Password")
 	private String password;
 
 	@Column(name = "Email")
 	private String email;
+	
+	@Column(name = "Age")
+	private int age;
 
-	public MySqlUser() {
+	public UserEntity() {
 		LOGGER.info("User class no-arg-constractor.");
+	}
+
+	public int getAge() {
+		return age;
+	}
+	
+	public void setAge(int age) {
+		this.age = age;
 	}
 
 	public String getEmail() {
@@ -53,12 +64,12 @@ public class MySqlUser implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {

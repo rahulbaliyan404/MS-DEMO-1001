@@ -3,18 +3,19 @@ package com.home.dao;
 import java.util.List;
 import java.util.Optional;
 
-import com.home.bean.MySqlUser;
+import com.home.dto.UserDto;
+import com.home.entity.UserEntity;
 
 public interface UserDao {
 
-	List<MySqlUser> getMySqlUsers();
+	List<UserEntity> getMySqlUsers();
 
-	Optional<MySqlUser> getUserById(int id);
+	Optional<UserEntity> getUserById(int id);
 
-	MySqlUser saveUser(MySqlUser user);
+	UserEntity saveUser(UserDto user);
 
 	String deleteUser(int id);
 
-	MySqlUser loginUser(MySqlUser user);
+	UserEntity loginUser(UserEntity user);
 
 }

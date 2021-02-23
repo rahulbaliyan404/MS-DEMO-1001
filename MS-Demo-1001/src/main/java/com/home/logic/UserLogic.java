@@ -3,18 +3,19 @@ package com.home.logic;
 import java.util.List;
 import java.util.Optional;
 
-import com.home.bean.MySqlUser;
+import com.home.dto.UserDto;
+import com.home.entity.UserEntity;
 
 public interface UserLogic {
 
-	Optional<MySqlUser> getUserById(int id);
+	Optional<UserEntity> getUserById(int id);
 
-	List<MySqlUser> getUsers();
+	List<UserEntity> getUsers();
 
-	String saveUser(MySqlUser user);
+	 UserEntity saveUser(UserDto user);
 
 	String deleteUser(int id);
 
-	MySqlUser loginUser(MySqlUser user);
+	UserEntity loginUser(UserEntity user);
 
 }

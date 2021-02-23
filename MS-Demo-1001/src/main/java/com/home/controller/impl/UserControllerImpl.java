@@ -6,15 +6,18 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
+//import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.home.bean.MySqlUser;
 import com.home.controller.UserController;
+import com.home.dto.UserDto;
+import com.home.entity.UserEntity;
 import com.home.logic.UserLogic;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
 public class UserControllerImpl implements UserController {
 	
 	@Autowired
@@ -23,27 +26,21 @@ public class UserControllerImpl implements UserController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserControllerImpl.class);
 
 	@Override
-	public MySqlUser loginUser(MySqlUser user) {
+	public UserEntity loginUser(UserEntity user) {
 		LOGGER.info("UserControllerImpl loginUser method  :: START");
 		return userLogic.loginUser(user);
 	}
 
 	@Override
-	public Optional<MySqlUser> getUserById(int id) {
+	public Optional<UserEntity> getUserById(int id) {
 		LOGGER.info("UserControllerImpl getUserById method :: START");
 		return userLogic.getUserById(id);
 	}
 
 	@Override
-	public List<MySqlUser> getUsers() {
+	public List<UserEntity> getUsers() {
 		LOGGER.info("UserControllerImpl getUsers method    :: START");
 		return userLogic.getUsers();
-	}
-
-	@Override
-	public String saveUser(MySqlUser user) {
-		LOGGER.info("UserControllerImpl saveUser method    :: START");
-		return userLogic.saveUser(user);
 	}
 
 	@Override
@@ -53,13 +50,18 @@ public class UserControllerImpl implements UserController {
 	}
 
 	@Override
-	public String updateUser(MySqlUser user,int id) {
+	public String updateUser(UserEntity user,int id) {
 		
 		System.out.println(user.getId());
-		System.out.println(user.getName());
+		System.out.println(user.getUsername());
 		System.out.println(id);
 		
 		return null;
+	}
+	
+	@Override
+	public ResponseEntity<?> saveUser(@RequestBody UserDto user) {
+		return ResponseEntity.ok(userLogic.saveUser(user));
 	}
 
 }

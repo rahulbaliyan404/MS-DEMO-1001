@@ -7,10 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.home.bean.MySqlUser;
-import com.home.constant.Constants;
 import com.home.dao.UserDao;
+import com.home.dto.UserDto;
+import com.home.entity.UserEntity;
 import com.home.logic.UserLogic;
 
 @Component
@@ -23,16 +22,16 @@ public class UserLogicImpl implements UserLogic {
 	String message = null;
 
 	@Override
-	public Optional<MySqlUser> getUserById(int id) {
+	public Optional<UserEntity> getUserById(int id) {
 		LOGGER.info("UserLogicImpl getUserById method :: START");
 		return userDao.getUserById(id);
 	}
 
 	@Override
-	public List<MySqlUser> getUsers() {
+	public List<UserEntity> getUsers() {
 		LOGGER.info("UserLogicImpl getUsers method :: START");
 
-		List<MySqlUser> mysqlUserList = userDao.getMySqlUsers();
+		List<UserEntity> mysqlUserList = userDao.getMySqlUsers();
 		/*
 		 * List<PgSqlUser> pgSqlUserList = userDao.getPgSqlUsers();
 		 * 
@@ -46,15 +45,9 @@ public class UserLogicImpl implements UserLogic {
 	}
 
 	@Override
-	public String saveUser(MySqlUser user) {
+	public UserEntity saveUser(UserDto user) {
 		LOGGER.info("UserLogicImpl saveUser method :: START");
-		MySqlUser response = userDao.saveUser(user);
-
-		if (response != null) {
-			message = Constants.SUCCESS;
-		}
-
-		return message;
+		return userDao.saveUser(user);
 	}
 
 	@Override
@@ -64,7 +57,7 @@ public class UserLogicImpl implements UserLogic {
 	}
 
 	@Override
-	public MySqlUser loginUser(MySqlUser user) {
+	public UserEntity loginUser(UserEntity user) {
 		LOGGER.info("UserLogicImpl loginUser method :: START");
 		return userDao.loginUser(user);
 	}

@@ -100,6 +100,8 @@ public class UserDaoImpl implements UserDao {
 		newUser.setPassword(passwordEncoder.encode(user.getPassword()));
 		newUser.setEmail(user.getEmail());
 		newUser.setAge(user.getAge());
+		newUser.setSalary(user.getSalary());
+		newUser.setServiceType(user.getServiceType());
 		return mySqlUserRepository.save(newUser);
 	}
 

@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Entity
-@Table(name = "mysql_user")
+@Table(name = "mysql_1001_user")
 public class UserEntity implements Serializable {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserEntity.class);
@@ -32,18 +32,40 @@ public class UserEntity implements Serializable {
 
 	@Column(name = "Email")
 	private String email;
-	
+
 	@Column(name = "Age")
 	private int age;
+
+	@Column(name = "Salary")
+	private double salary;
+
+	@Column(name = "Type")
+	private String serviceType;
 
 	public UserEntity() {
 		LOGGER.info("User class no-arg-constractor.");
 	}
 
+	public String getServiceType() {
+		return serviceType;
+	}
+
+	public void setServiceType(String serviceType) {
+		this.serviceType = serviceType;
+	}
+
+	public double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+
 	public int getAge() {
 		return age;
 	}
-	
+
 	public void setAge(int age) {
 		this.age = age;
 	}

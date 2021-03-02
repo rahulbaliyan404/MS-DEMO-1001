@@ -10,7 +10,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.home.constant.Constants;
@@ -30,7 +30,7 @@ public class UserDaoImpl implements UserDao {
 	private DbConnection dbConection;
 	
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private BCryptPasswordEncoder passwordEncoder;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserDaoImpl.class);
 	String message = Constants.ERROR;

@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.home.jwt.JwtAuthenticationEntryPoint;
 import com.home.jwt.JwtRequestFilter;
-
+import com.home.jwt.service.JwtUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -30,14 +30,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
 	@Autowired
-	private UserDetailsService jwtUserDetailsService;
+	private UserDetailsService userDetailsService;
 
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
 
 	@Autowired
+	private JwtUserDetailsService jwtUserDetailsService;
+
+	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
 
 	@Bean
@@ -54,11 +57,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.csrf().disable()
-				.authorizeRequests().antMatchers("/authenticate","/demo1001/save").permitAll().
-						anyRequest().authenticated().and().
-						exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+		httpSecurity.csrf().disable().authorizeRequests().antMatchers("/authenticate", "/demo1001/save").permitAll()
+				.anyRequest().authenticated().and().exceptionHandling()
+				.authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+	}
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
 	}
 }
